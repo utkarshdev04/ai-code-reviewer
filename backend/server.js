@@ -14,7 +14,12 @@ connectDB();
 
 const app = express();
 
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://ai-code-reviewer-kappa-seven.vercel.app"
+  ]
+}));
 app.use(express.json({ limit: "10mb" }));
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
