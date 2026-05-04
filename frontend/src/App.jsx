@@ -100,7 +100,7 @@ function IssueCard({ issue, index, t, filePath, repoUrl }) {
     setFixError("");
     setFixedCode(null);
     try {
-      const res = await fetch("${import.meta.env.VITE_API_URL}/fix", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/fix`, {
         method: "POST",
         headers: authHeaders(),
         body: JSON.stringify({ filePath, issue, repoUrl }),
@@ -366,7 +366,7 @@ export default function App() {
 
   async function fetchHistory() {
     try {
-      const res = await fetch("${import.meta.env.VITE_API_URL}/history", { headers: authHeaders() });
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/history`, { headers: authHeaders() });
       if (res.status === 401) { handleLogout(); return; }
       const data = await res.json();
       setHistory(data);
@@ -411,7 +411,7 @@ export default function App() {
 
   async function analyzeFile(owner, repo, file) {
     const content = await fetchFileContent(file.download_url);
-    const res = await fetch("${import.meta.env.VITE_API_URL}/review", {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/review`, {
       method: "POST", headers: authHeaders(),
       body: JSON.stringify({ path: file.path, content, language: getExt(file.name) }),
     });
@@ -447,7 +447,7 @@ export default function App() {
       }
       addLog("✓ Review complete!", "success");
       try {
-        const saveRes = await fetch("${import.meta.env.VITE_API_URL}/save-review", {
+        const saveRes = await fetch(`${import.meta.env.VITE_API_URL}/save-review`, {
           method: "POST", headers: authHeaders(),
           body: JSON.stringify({ repoUrl: url, owner, repo, results: allResults }),
         });
